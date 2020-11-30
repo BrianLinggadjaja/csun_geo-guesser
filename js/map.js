@@ -4,6 +4,7 @@
 
 
 let map
+let shapesRefsArray = []
 function initMap () {
     const csunCordinates = {
         lat: 34.23839816216911,
@@ -37,7 +38,9 @@ function initMap () {
         rotateControl: false,
         fullscreenControl: false
     })
+}
 
+function generateZoneListing () {
     // Generate Building Zones from Listing
     for (const building of zoneListingsNameArray) {
         createBuildingZone(building)
@@ -53,6 +56,8 @@ function createBuildingZone (nameOfBuilding) {
         
         // Attach Double Click Listener
         addBuildingZoneListener(newBuildingZone)
+
+        shapesRefsArray.push(newBuildingZone)
     }
 }
 

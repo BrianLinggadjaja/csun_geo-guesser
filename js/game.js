@@ -1,3 +1,10 @@
 function startNewGame () {
-    console.log(false)
+    resetMap()
+    generateZoneListing()
+}
+
+function resetMap () {
+    for (const shapeObj of shapesRefsArray) {
+        shapeObj.setMap(null)
+    }
 }
