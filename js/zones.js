@@ -26,6 +26,7 @@ class Zone {
     getZoneObject () {
         let validZoneObject = zoneConfig
         validZoneObject.bounds = this.bounds
+        validZoneObject.boundsObj = this.bounds
         validZoneObject.name = this.name
         validZoneObject.map = map
 
@@ -149,10 +150,10 @@ const zoneListings = {
         west: -118.5287545185633
     },
     'The Soraya (VPAC)': {
-        north: 34.23778353519104,
-        south: 34.23698044636001,
-        east: -118.52759346700574,
-        west: -118.52879047925369
+        north: 34.23632265241639,
+        south: 34.235771516897266,
+        east: -118.527514434407,
+        west: -118.52879031513858
     },
     'Student Recreation Center': {
         north: 34.24061929665897,

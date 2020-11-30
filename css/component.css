@@ -27,11 +27,12 @@
     height: 100%;
     width: 100%;
 }
-.map-wrapper.hide .map {
-    pointer-events: none;
-}
 
 .map-wrapper.hide .map-popover-wrapper {
+    display: none;
+}
+
+.map-wrapper .map-popover-wrapper {
     background-color: var(--background-color-transparent);
     color: var(--background-color-invert);
     display: flex;
@@ -48,7 +49,7 @@
 .map-popover {
     width: 80%;
     opacity: 1;
-    margin-bottom: 10rem;
+    margin-bottom: 12rem;
 }
 
 .map-popover__description {
@@ -62,4 +63,22 @@
 
 .map-popover__play-button {
     font-size: 1.75rem;
+}
+
+
+/* 
+    * Status Bar
+    */
+
+
+.status {
+    background-color: var(--accent-color);
+    color: var(--accent-color-invert);
+    font-size: 1.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }

@@ -4,13 +4,24 @@
 
 
 :root {
-    --background-color: rgb(25, 25, 25);
+    /* --background-color: rgb(25, 25, 25);
     --background-color-transparent: rgba(25, 25, 25, 0.8);
     --background-color-invert: rgb(245, 245, 245);
+
+    --accent-color: rgb(80, 15, 35); 
+    --accent-color-invert: rgb(225, 220, 210); */
+
+    --background-color: powderblue;
+    --background-color-transparent: powderblue;
+    --background-color-invert: limegreen;
+
+    --accent-color: powderblue; 
+    --accent-color-invert: limegreen;
     
-    --button-color: rgb(80, 15, 35);
+    --button-color: var(--accent-color);
+    --button-color-active: rgb(50, 15, 25);
     --button-color-border: rgb(32, 10, 15);
-    --button-color-invert: rgb(225, 220, 210);
+    --button-color-invert: var(--accent-color-invert);
     --button-color-transparent: rgba(80, 15, 35, 0.8);
 }
 
@@ -78,6 +89,12 @@ button {
     font-weight: bold;
     padding: 0.5rem 1.5rem;
     cursor: pointer;
+}
+
+button:hover,
+button:focus,
+button:active {
+    background-color: var(--button-color-active);
 }
 
 

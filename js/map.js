@@ -4,7 +4,7 @@
 
 
 let map
-let shapesRefsArray = []
+let zoneRefsArray = []
 function initMap () {
     const csunCordinates = {
         lat: 34.23839816216911,
@@ -40,29 +40,45 @@ function initMap () {
     })
 }
 
+
+/*
+    * Shapes Generation
+    */
+
+
 function generateZoneListing () {
     // Generate Building Zones from Listing
-    for (const building of zoneListingsNameArray) {
-        createBuildingZone(building)
+    for (const buildingName of zoneListingsNameArray) {
+        createBuildingZone(zoneListings, buildingName)
     }
 }
 
-function createBuildingZone (nameOfBuilding) {
-    let isBuildingValid = (zoneListings[nameOfBuilding])
+function createBuildingZone (zoneListings, buildingName) {
+    let isBuildingValid = (zoneListings[buildingName])
 
     if (isBuildingValid) {
-        // Create new Shape based off the nameOfBuilding Zone Object
-        const newBuildingZone = new google.maps.Rectangle( new Zone(zoneListings[nameOfBuilding], nameOfBuilding).getZoneObject() )
+        // Create new Shape based off the buildingName Zone Object
+        let newBuildingZone = new google.maps.Rectangle( new Zone(zoneListings[buildingName], buildingName).getZoneObject() )
         
         // Attach Double Click Listener
         addBuildingZoneListener(newBuildingZone)
 
-        shapesRefsArray.push(newBuildingZone)
+        zoneRefsArray.push(newBuildingZone)
     }
 }
 
 function addBuildingZoneListener (buildingZone) {
     buildingZone.addListener('dblclick', () => {
-        console.log('dblclick', buildingZone)
+        checkLocation(buildingZone)
     })
+}
+
+function resetMap () {
+    // Grab all the shapes references in the array and clear the shape
+    for (const shapeObj of zoneRefsArray) {
+        shapeObj.setMap(null)
+    }
+
+    // CLear all references in shapes array
+    zoneRefsArray = []
 }
