@@ -5,9 +5,13 @@
 
 :root {
     --background-color: rgb(25, 25, 25);
+    --background-color-transparent: rgba(25, 25, 25, 0.8);
     --background-color-invert: rgb(245, 245, 245);
     
-    --zoom-button-color: rgba(80, 15, 35, 0.8);
+    --button-color: rgb(80, 15, 35);
+    --button-color-border: rgb(32, 10, 15);
+    --button-color-invert: rgb(225, 220, 210);
+    --button-color-transparent: rgba(80, 15, 35, 0.8);
 }
 
 
@@ -42,6 +46,8 @@ main {
 /* 
     * Header Levels 
     */
+
+
 h1 {
     font-size: 3.25rem;
 }
@@ -60,6 +66,22 @@ p {
 
 
 /*
+    * Buttons
+    */
+
+
+button {
+    background-color: var(--button-color);
+    color: var(--button-color-invert);
+    border: 0.2rem solid var(--button-color-border);
+    border-radius: 2rem;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+}
+
+
+/*
     * Remove Google Maps Branding
     */
 
@@ -72,7 +94,7 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .gmnoprint button {
-    background: var(--zoom-button-color) !important;
+    background: var(--button-color-transparent) !important;
 }
 
 .gmnoprint a, 

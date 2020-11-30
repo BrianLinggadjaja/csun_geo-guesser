@@ -4,7 +4,8 @@
 
 
 (() => {
-    console.log(true)
+    const playButtonElem = document.querySelector('#playButton')
+    playButtonElem.addEventListener('click', startNewGame)
 })()
 
 

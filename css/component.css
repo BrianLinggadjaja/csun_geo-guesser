@@ -32,9 +32,8 @@
 }
 
 .map-wrapper.hide .map-popover-wrapper {
-    background-color: var(--background-color);
+    background-color: var(--background-color-transparent);
     color: var(--background-color-invert);
-    opacity: 80%;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -48,5 +47,19 @@
 
 .map-popover {
     width: 80%;
-    margin-bottom: 12rem;
+    opacity: 1;
+    margin-bottom: 10rem;
+}
+
+.map-popover__description {
+    margin-bottom: 2rem;
+}
+
+.map-popover > *:not(.map-popover__description) {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.map-popover__play-button {
+    font-size: 1.75rem;
 }

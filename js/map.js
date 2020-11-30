@@ -56,7 +56,7 @@ function createBuildingZone (nameOfBuilding) {
     }
 }
 
-function addBuildingZoneListener(buildingZone) {
+function addBuildingZoneListener (buildingZone) {
     buildingZone.addListener('dblclick', () => {
         console.log('dblclick', buildingZone)
     })

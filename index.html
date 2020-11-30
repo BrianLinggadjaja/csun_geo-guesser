@@ -14,6 +14,7 @@
         <!-- Import Scripts -->
         <script defer src="./js/zones.js"></script>
         <script defer src="./js/map.js"></script>
+        <script defer src="./js/game.js"></script>
         <script defer src="./js/entry.js"></script>
 
         <!-- Import Google Maps API -->
@@ -34,7 +35,9 @@
                     <div class="map-popover">
                         <p class="map-popover__description">Press the button to start the game. Select the right location when the prompt shows up. Double click a box to lock in your guess.</p>
                         <h2 class="map-popover__header">Start Game?</h2>
-                        <button class="map-popover__play-button" type="button">Play</button>
+                        <div>
+                            <button id="playButton" class="map-popover__play-button" type="button">Play</button>
+                        </div>
                     </div>
                 </div>
             </main>
