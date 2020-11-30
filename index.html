@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSUN Geo Guesser</title>
+
+        <!-- Import Stylesheets -->
+        <link rel="stylesheet" href="./css/reset.min.css">
+        <link rel="stylesheet" href="./css/base.css">
+        <link rel="stylesheet" href="./css/component.css">
+
+        <!-- Import Scripts -->
+        <script defer src="./js/zones.js"></script>
+        <script defer src="./js/map.js"></script>
+        <script defer src="./js/entry.js"></script>
+
+        <!-- Import Google Maps API -->
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAV56zabXRDJW2wKvNoXdOOgLmoLpjNu9k&map_ids=d9ab15593fae6746&callback=initMap"></script>
+    </head>
+
+    <body>
+        <div class="app-wrapper">
+            <header class="header">
+                <h1 class="header-title">CSUN Geo Guesser</h1>
+                <p class="header-description">Press the start button to start guessing!</p>
+            </header>
+
+            <main>
+                <div id="map" class="map"></div>
+            </main>
+        </div>
+    </body>
+</html>
