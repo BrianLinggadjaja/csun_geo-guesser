@@ -1,6 +1,8 @@
 /*
     * Header
     */
+
+
 .header {
     background-color: var(--background-color);
     color: var(--background-color-invert);
@@ -12,7 +14,39 @@
 }
 
 
+/*
+    * Map
+    */
+
+
+.map-wrapper {
+    position: relative;
+}
+
 .map {
     height: 100%;
     width: 100%;
+}
+.map-wrapper.hide .map {
+    pointer-events: none;
+}
+
+.map-wrapper.hide .map-popover-wrapper {
+    background-color: var(--background-color);
+    color: var(--background-color-invert);
+    opacity: 80%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.map-popover {
+    width: 80%;
+    margin-bottom: 12rem;
 }

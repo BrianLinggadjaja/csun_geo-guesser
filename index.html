@@ -24,11 +24,19 @@
         <div class="app-wrapper">
             <header class="header">
                 <h1 class="header-title">CSUN Geo Guesser</h1>
-                <p class="header-description">Press the start button to start guessing!</p>
+                <p class="header-description">Test to see how well you know our campus!</p>
             </header>
 
-            <main>
+            <main class="map-wrapper hide">
                 <div id="map" class="map"></div>
+
+                <div class="map-popover-wrapper">
+                    <div class="map-popover">
+                        <p class="map-popover__description">Press the button to start the game. Select the right location when the prompt shows up. Double click a box to lock in your guess.</p>
+                        <h2 class="map-popover__header">Start Game?</h2>
+                        <button class="map-popover__play-button" type="button">Play</button>
+                    </div>
+                </div>
             </main>
         </div>
     </body>

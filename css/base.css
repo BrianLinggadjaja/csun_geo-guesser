@@ -1,10 +1,20 @@
 /* 
     * Variables
     */
+
+
 :root {
     --background-color: rgb(25, 25, 25);
     --background-color-invert: rgb(245, 245, 245);
+    
+    --zoom-button-color: rgba(80, 15, 35, 0.8);
 }
+
+
+/*
+    * Layout
+    */
+
 
 html,
 body {
@@ -22,7 +32,16 @@ main {
     flex: 1;
 }
 
-/* Header Levels */
+.app-wrapper {
+    display: flex;
+    flex-flow: column wrap;
+    height: 100%;
+}
+
+
+/* 
+    * Header Levels 
+    */
 h1 {
     font-size: 3.25rem;
 }
@@ -39,16 +58,11 @@ p {
     font-size: 1.25rem;
 }
 
-.app-wrapper {
-    display: flex;
-    flex-flow: column wrap;
-    height: 100%;
-}
-
 
 /*
     * Remove Google Maps Branding
     */
+
 
 a[href^="http://maps.google.com/maps"] {
     display:none !important
@@ -58,7 +72,7 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .gmnoprint button {
-    background: rgba(80, 15, 35, 0.8) !important;
+    background: var(--zoom-button-color) !important;
 }
 
 .gmnoprint a, 
