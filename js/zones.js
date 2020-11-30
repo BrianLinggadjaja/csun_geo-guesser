@@ -2,6 +2,7 @@
     * Zone Configuration
     */
 
+
 const zoneConfig = {
     fillColor: '#000000',
     fillOpacity: 0.5,
@@ -17,13 +18,15 @@ const zoneConfig = {
 
 
 class Zone {
-    constructor (bounds) {
+    constructor (bounds, nameOfBuilding) {
         this.bounds = bounds
+        this.name = nameOfBuilding
     }
 
     getZoneObject () {
         let validZoneObject = zoneConfig
         validZoneObject.bounds = this.bounds
+        validZoneObject.name = this.name
         validZoneObject.map = map
 
         return validZoneObject
@@ -152,9 +155,11 @@ const zoneListings = {
         west: -118.52879047925369
     },
     'Student Recreation Center': {
-        north: 34.236326911791295,
-        south: 34.23578243430174,
-        east: -118.52751388890977,
-        west: -118.52517039371146
+        north: 34.24061929665897,
+        south: 34.23932458410198,
+        east: -118.52468521642261,
+        west: -118.5251732408475
     }
 }
+
+const zoneListingsNameArray = Object.keys(zoneListings)

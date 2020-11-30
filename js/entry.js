@@ -6,3 +6,9 @@
 (() => {
     console.log(true)
 })()
+
+
+/*
+    * General Config
+    */
+

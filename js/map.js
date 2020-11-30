@@ -21,7 +21,7 @@ function initMap () {
 
     const mapId = 'd9ab15593fae6746'
     const minZoom = 17
-    const maxZoom = 19
+    const maxZoom = 18
 
     map = new google.maps.Map(document.getElementById("map"), {
         mapId: mapId,
@@ -30,6 +30,7 @@ function initMap () {
         zoom: minZoom,
         maxZoom: maxZoom,
         minZoom: minZoom,
+        disableDoubleClickZoom: true,
         mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
@@ -37,17 +38,26 @@ function initMap () {
         fullscreenControl: false
     })
 
-    const zoneListingsNameArray = Object.keys(zoneListings)
+    // Generate Building Zones from Listing
     for (const building of zoneListingsNameArray) {
         createBuildingZone(building)
     }
 }
 
-function createBuildingZone(nameOfBuilding) {
+function createBuildingZone (nameOfBuilding) {
     let isBuildingValid = (zoneListings[nameOfBuilding])
 
     if (isBuildingValid) {
         // Create new Shape based off the nameOfBuilding Zone Object
-        new google.maps.Rectangle( new Zone(zoneListings[nameOfBuilding]).getZoneObject() )
+        const newBuildingZone = new google.maps.Rectangle( new Zone(zoneListings[nameOfBuilding], nameOfBuilding).getZoneObject() )
+        
+        // Attach Double Click Listener
+        addBuildingZoneListener(newBuildingZone)
     }
+}
+
+function addBuildingZoneListener(buildingZone) {
+    buildingZone.addListener('dblclick', () => {
+        console.log('dblclick', buildingZone)
+    })
 }
