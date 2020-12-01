@@ -26,7 +26,6 @@ function resetState () {
     globalState.currentLocation = null
 
     globalState.timerRef = null
-    globalState.timeArray = []
     globalState.totalMinutes = 0
     globalState.totalSeconds = 0
     globalState.locationNumber = 0
@@ -124,8 +123,14 @@ function updateShape (buildingZone, fillColor) {
 }
 
 function updateStatus () {
+    updateStatusIndicator()
     updateLocationCount()
     updateStatusButton()
+}
+
+function updateStatusIndicator () {
+    const statusIndicatorElem = document.querySelector('.status-indicator')
+    statusIndicatorElem.innerText = globalState.locationNumber
 }
 
 function updateLocationCount () {

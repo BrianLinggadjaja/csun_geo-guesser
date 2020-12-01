@@ -11,9 +11,9 @@
     --accent-color: rgb(80, 15, 35); 
     --accent-color-invert: rgb(225, 220, 210);
 
-    --modal-color: rgb(245, 245, 245);
-    --modal-color-border: rgb(215, 215, 215);
-    --modal-color-invert: rgb(25, 25, 25);
+    --status-color: rgb(245, 245, 245);
+    --status-color-border: rgb(215, 215, 215);
+    --status-color-invert: rgb(25, 25, 25);
     
     --button-color: var(--accent-color);
     --button-color-active: rgb(50, 15, 25);
