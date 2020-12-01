@@ -6,13 +6,7 @@
 (() => {
     const playButtonElem = document.querySelector('#playButton')
     playButtonElem.addEventListener('click', startNewGame)
-
-    iLoveNabeel()
 })()
-
-function iLoveNabeel (){
-    alert("I love Nabeel")
-}
 
 
 /*
@@ -38,7 +32,7 @@ function toggleStartScreen () {
 
 
 const config = {
-    totalGuessLocations: 5,
+    totalGuessLocations: 2,
     successColor: '#00FF00',
     failColor: '#FF0000'
 }

@@ -29,7 +29,7 @@ function randomizeGuessLocations () {
     guessLocationsArray = []
 
     // Populate the guessLocationsArray with new locations
-    for (let i = 0; i <= config.totalGuessLocations; i += 1) {
+    for (let i = 0; i <= (config.totalGuessLocations - 1); i += 1) {
         let randomlySelectedIndex = getRandomInt(locations.length)
 
         guessLocationsArray.push(locations[randomlySelectedIndex])
@@ -43,15 +43,23 @@ function getRandomInt(max) {
 
 function updateNewLocation () {
     // Check if guessLocationsArray is populated
-    if (guessLocationsArray) {
+    let hasLocations = (guessLocationsArray.length !== 0)
+
+    if (hasLocations) {
         // Set current location of next location and removes from guessLocationsArray
         currentLocation = guessLocationsArray[0]
-        guessLocationsArray.unshift
+        guessLocationsArray.shift()
 
-        // Update prompt with newLocation
+        // Update status using the currentLocation
+        updateLocationStatus()
     } else {
-        console.error('No guess locations from promptLocation()')
+        // Complete status
     }
+}
+
+function updateLocationStatus () {
+    const statusElem = document.querySelector('#status')
+    statusElem.innerText = 'The current location to guess is ' + currentLocation
 }
 
 function checkLocation (buildingZone) {
@@ -59,7 +67,9 @@ function checkLocation (buildingZone) {
 
     if (isCorrectLocation) {
         updateShape(buildingZone, config.successColor)
-        // Prompt user with success prompt
+        // resetMap()
+        // generateZoneListing()
+        // updateNewLocation()
     } else {
         updateShape(buildingZone, config.failColor)
     }
@@ -70,11 +80,12 @@ function updateShape (buildingZone, fillColor) {
     buildingZone.setMap(null)
 
     // Create new Zone Object with Proper fillColor
-    let newZoneObj = zoneConfig
+    let newZoneObj = {...zoneConfig}
     newZoneObj.bounds = buildingZone.boundsObj
     newZoneObj.name = buildingZone.name
     newZoneObj.fillColor = fillColor
 
     // Generate new Shape from newZoneObj
-    new google.maps.Rectangle( newZoneObj )
+    let newBuildingZone = new google.maps.Rectangle( newZoneObj )
+    zoneRefsArray.push(newBuildingZone)
 }

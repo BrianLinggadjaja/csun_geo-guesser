@@ -155,7 +155,7 @@ const zoneListings = {
         east: -118.527514434407,
         west: -118.52879031513858
     },
-    'Student Recreation Center': {
+    'Student Recreation Center (SRC)': {
         north: 34.24061929665897,
         south: 34.23932458410198,
         east: -118.52468521642261,

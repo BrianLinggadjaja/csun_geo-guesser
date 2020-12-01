@@ -29,7 +29,20 @@
             </header>
 
             <main class="map-wrapper">
-                <div id="status" class="status">Test</div>
+                <div class="status-wrapper">
+                    <div id="status" class="status"></div>
+                    <div class="status-indicator-wrapper">
+                        <span class="status-indicator">1</span>
+                    </div>
+
+                    <div class="status-modal-wrapper">
+                        <div class="status-modal">
+                            <h2 class="status-modal-progress">Location 1/3</h2>
+                            <span class="status-modal-time">Completed In: 12s</span>
+                            <button class="status-modal-button" type="button">Next Location</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="map" class="map"></div>
 
