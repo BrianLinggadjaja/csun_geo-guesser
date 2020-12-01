@@ -27,22 +27,6 @@ function toggleElem (querySelector) {
 
 
 /*
-    * Global State
-    */
-
-
-let globalState = {
-    guessLocationsArray: [],
-    currentLocation: null,
-    zoneRefsArray: [],
-    timerRef: null,
-    totalMinutes: 0,
-    totalSeconds: 0,
-    locationNumber: 0
-}
-
-
-/*
     * General Config
     */
 
@@ -55,13 +39,49 @@ const config = {
 
 
 /*
-    * Helper
+    * Global State
     */
+
+
+let globalState = {
+    guessLocationsArray: [],
+    currentLocation: null,
+    zoneRefsArray: [],
+    timerRef: null,
+    totalTestTime: 0,
+    totalMinutes: 0,
+    totalSeconds: 0,
+    locationNumber: 0
+}
+
+
+/*
+    * Helpers
+    */
+
+
+// Reset state to defaults
+function resetState () {
+    globalState.guessLocationsArray = []
+    globalState.currentLocation = null
+
+    globalState.timerRef = null
+    globalState.totalTestTime = 0
+    globalState.totalMinutes = 0
+    globalState.totalSeconds = 0
+    globalState.locationNumber = 0
+}
 
 
 function getRandomInt (max) {
     return Math.floor(Math.random() * Math.floor(max))
 }
+
+
+/*
+    * Timer
+    */
+
 
 let timer
 function startTimer () {

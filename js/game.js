@@ -5,12 +5,14 @@
 
 function startNewGame () {
     resetMap()
+
     generateZoneListing()
     randomizeGuessLocations()
     updateNewLocation()
+
+    updateStatus()
     toggleElem('.map-wrapper')
     startTimer()
-    updateStatus()
 }
 
 function endGame () {
@@ -20,17 +22,7 @@ function endGame () {
     toggleElem('.status-modal-wrapper')
 }
 
-// Reset state to defaults
-function resetState () {
-    globalState.guessLocationsArray = []
-    globalState.currentLocation = null
-
-    globalState.timerRef = null
-    globalState.totalMinutes = 0
-    globalState.totalSeconds = 0
-    globalState.locationNumber = 0
-}
-
+// Generates unique locations array
 function randomizeGuessLocations () {
     // Copy zoneListingsNameArray without modifying original content
     let locations = []
@@ -48,6 +40,7 @@ function randomizeGuessLocations () {
     }
 }
 
+// Updates next location based off the guessLocationsArray
 function updateNewLocation () {
     // Check if guessLocationsArray is populated
     let hasLocations = (globalState.guessLocationsArray.length !== 0)
@@ -59,39 +52,23 @@ function updateNewLocation () {
 
         // Update location number
         globalState.locationNumber += 1
-        updateStatus()
 
-        // Update status using the currentLocation
-        updateLocationStatus()
+        // Update status
+        updateStatus()
     } else {
-        attachStatusButton()
+        attachStatusButtonListener()
     }
 }
 
-function updateLocationStatus () {
-    const statusElem = document.querySelector('#status')
-    statusElem.innerText = 'The current location to guess is ' + globalState.currentLocation
-}
-
-function checkLocation (buildingZone) {
-    const isCorrectLocation = (buildingZone.name === globalState.currentLocation)
-
-    if (isCorrectLocation) {
-        updateShape(buildingZone, config.successColor)
-        stopTimer()
-        toggleElem('.status-modal-wrapper')
-        attachStatusButton()
-        updateStatus()
-    } else {
-        updateShape(buildingZone, config.failColor)
-    }
-}
-
-function attachStatusButton () {
+// Attaches event listener to handle location modal
+function attachStatusButtonListener () {
     const statusButtonElem = document.querySelector('.status-modal-button')
+
+    // Remove previous event listeners
     statusButtonElem.removeEventListener('click', endGame)
     statusButtonElem.removeEventListener('click', nextLocation)
 
+    // Assign proper event listener to status button
     if (globalState.locationNumber >= config.totalGuessLocations) {
         statusButtonElem.addEventListener('click', endGame)
     } else {
@@ -99,6 +76,7 @@ function attachStatusButton () {
     }
 }
 
+// Updates next test location
 function nextLocation () {
     toggleElem('.status-modal-wrapper')
     resetMap()
@@ -107,25 +85,22 @@ function nextLocation () {
     startTimer()
 }
 
-function updateShape (buildingZone, fillColor) {
-    // Clear Zone Shape
-    buildingZone.setMap(null)
 
-    // Create new Zone Object with Proper fillColor
-    let newZoneObj = {...zoneConfig}
-    newZoneObj.bounds = buildingZone.boundsObj
-    newZoneObj.name = buildingZone.name
-    newZoneObj.fillColor = fillColor
+/*
+    * Status
+    */
 
-    // Generate new Shape from newZoneObj
-    let newBuildingZone = new google.maps.Rectangle( newZoneObj )
-    globalState.zoneRefsArray.push(newBuildingZone)
-}
 
 function updateStatus () {
     updateStatusIndicator()
     updateLocationCount()
     updateStatusButton()
+    updateLocationStatus()
+}
+
+function updateLocationStatus () {
+    const statusElem = document.querySelector('#status')
+    statusElem.innerText = 'The current location to guess is ' + globalState.currentLocation
 }
 
 function updateStatusIndicator () {

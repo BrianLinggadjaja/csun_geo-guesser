@@ -41,7 +41,7 @@ function initMap () {
 
 
 /*
-    * Shapes Generation
+    * Zone functionality
     */
 
 
@@ -70,6 +70,37 @@ function addBuildingZoneListener (buildingZone) {
     buildingZone.addListener('dblclick', () => {
         checkLocation(buildingZone)
     })
+}
+
+// Checks and updates location "shapes" from the "dblclick" listener
+function checkLocation (buildingZone) {
+    const isCorrectLocation = (buildingZone.name === globalState.currentLocation)
+
+    if (isCorrectLocation) {
+        updateShape(buildingZone, config.successColor)
+        stopTimer()
+        toggleElem('.status-modal-wrapper')
+        attachStatusButtonListener()
+        updateStatus()
+    } else {
+        updateShape(buildingZone, config.failColor)
+    }
+}
+
+// Updates selected zone with new fillColor
+function updateShape (buildingZone, fillColor) {
+    // Clear Zone Shape
+    buildingZone.setMap(null)
+
+    // Create new Zone Object with Proper fillColor
+    let newZoneObj = {...zoneConfig}
+    newZoneObj.bounds = buildingZone.boundsObj
+    newZoneObj.name = buildingZone.name
+    newZoneObj.fillColor = fillColor
+
+    // Generate new Shape from newZoneObj
+    let newBuildingZone = new google.maps.Rectangle( newZoneObj )
+    globalState.zoneRefsArray.push(newBuildingZone)
 }
 
 function resetMap () {
