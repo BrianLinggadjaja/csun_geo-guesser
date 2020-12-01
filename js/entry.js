@@ -36,7 +36,6 @@ let globalState = {
     currentLocation: null,
     zoneRefsArray: [],
     timerRef: null,
-    timeArray: [],
     totalMinutes: 0,
     totalSeconds: 0,
     locationNumber: 0
@@ -64,6 +63,7 @@ function getRandomInt (max) {
     return Math.floor(Math.random() * Math.floor(max))
 }
 
+let timer
 function startTimer () {
     timer = setInterval(() => {
         // Increment totalMinutes when totalSeconds equals a minute
@@ -85,8 +85,6 @@ function stopTimer () {
     completionTime[0] = globalState.totalMinutes
     completionTime[1] = globalState.totalSeconds
 
-    globalState.timeArray.push(completionTime)
-
     globalState.totalMinutes = 0
     globalState.totalSeconds = 0
 }
@@ -96,8 +94,8 @@ function updateClock () {
 
     if (isClockValid) {
         const timeElem = document.querySelector('.status-modal-time')
-        const hasTotalMinutes = (globalState.totalMinutes > 0) ? (globalState.totalMinutes + 'm' + ' ') : ''
-        const hasTotalSeconds = (globalState.totalSeconds >= 0) ? (globalState.totalSeconds + 's') : ''
+        let hasTotalMinutes = (globalState.totalMinutes > 0) ? (globalState.totalMinutes + 'm' + ' ') : ''
+        let hasTotalSeconds = (globalState.totalSeconds >= 0) ? (globalState.totalSeconds + 's') : ''
 
         // Update minutes and seconds render
         timeElem.innerText = 'Completed In: ' + hasTotalMinutes + ' ' + hasTotalSeconds

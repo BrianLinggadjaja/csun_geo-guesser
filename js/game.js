@@ -90,6 +90,7 @@ function checkLocation (buildingZone) {
 
 function attachStatusButton () {
     const statusButtonElem = document.querySelector('.status-modal-button')
+    statusButtonElem.removeEventListener('click', endGame)
     statusButtonElem.removeEventListener('click', nextLocation)
 
     if (globalState.locationNumber >= config.totalGuessLocations) {
@@ -104,6 +105,7 @@ function nextLocation () {
     resetMap()
     generateZoneListing()
     updateNewLocation()
+    startTimer()
 }
 
 function updateShape (buildingZone, fillColor) {
