@@ -1,13 +1,4 @@
 /*
-    * State
-    */
-
-
-let guessLocationsArray = []
-let currentLocation = null
-
-
-/*
     * Functionality
     */
 
@@ -17,7 +8,28 @@ function startNewGame () {
     generateZoneListing()
     randomizeGuessLocations()
     updateNewLocation()
-    toggleStartScreen()
+    toggleElem('.map-wrapper')
+    startTimer()
+    updateStatus()
+}
+
+function endGame () {
+    resetMap()
+    resetState()
+    toggleElem('.map-wrapper')
+    toggleElem('.status-modal-wrapper')
+}
+
+// Reset state to defaults
+function resetState () {
+    globalState.guessLocationsArray = []
+    globalState.currentLocation = null
+
+    globalState.timerRef = null
+    globalState.timeArray = []
+    globalState.totalMinutes = 0
+    globalState.totalSeconds = 0
+    globalState.locationNumber = 0
 }
 
 function randomizeGuessLocations () {
@@ -26,53 +38,72 @@ function randomizeGuessLocations () {
     zoneListingsNameArray.map(location => locations.push(location))
 
     // Reset guess locations array
-    guessLocationsArray = []
+    globalState.guessLocationsArray = []
 
     // Populate the guessLocationsArray with new locations
     for (let i = 0; i <= (config.totalGuessLocations - 1); i += 1) {
         let randomlySelectedIndex = getRandomInt(locations.length)
 
-        guessLocationsArray.push(locations[randomlySelectedIndex])
+        globalState.guessLocationsArray.push(locations[randomlySelectedIndex])
         locations.splice(randomlySelectedIndex, 1)
     }
 }
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max))
-}
-
 function updateNewLocation () {
     // Check if guessLocationsArray is populated
-    let hasLocations = (guessLocationsArray.length !== 0)
+    let hasLocations = (globalState.guessLocationsArray.length !== 0)
 
     if (hasLocations) {
         // Set current location of next location and removes from guessLocationsArray
-        currentLocation = guessLocationsArray[0]
-        guessLocationsArray.shift()
+        globalState.currentLocation = globalState.guessLocationsArray[0]
+        globalState.guessLocationsArray.shift()
+
+        // Update location number
+        globalState.locationNumber += 1
+        updateStatus()
 
         // Update status using the currentLocation
         updateLocationStatus()
     } else {
-        // Complete status
+        attachStatusButton()
     }
 }
 
 function updateLocationStatus () {
     const statusElem = document.querySelector('#status')
-    statusElem.innerText = 'The current location to guess is ' + currentLocation
+    statusElem.innerText = 'The current location to guess is ' + globalState.currentLocation
 }
 
 function checkLocation (buildingZone) {
-    const isCorrectLocation = (buildingZone.name === currentLocation)
+    const isCorrectLocation = (buildingZone.name === globalState.currentLocation)
 
     if (isCorrectLocation) {
         updateShape(buildingZone, config.successColor)
-        // resetMap()
-        // generateZoneListing()
-        // updateNewLocation()
+        stopTimer()
+        toggleElem('.status-modal-wrapper')
+        attachStatusButton()
+        updateStatus()
     } else {
         updateShape(buildingZone, config.failColor)
     }
+}
+
+function attachStatusButton () {
+    const statusButtonElem = document.querySelector('.status-modal-button')
+    statusButtonElem.removeEventListener('click', nextLocation)
+
+    if (globalState.locationNumber >= config.totalGuessLocations) {
+        statusButtonElem.addEventListener('click', endGame)
+    } else {
+        statusButtonElem.addEventListener('click', nextLocation)
+    }
+}
+
+function nextLocation () {
+    toggleElem('.status-modal-wrapper')
+    resetMap()
+    generateZoneListing()
+    updateNewLocation()
 }
 
 function updateShape (buildingZone, fillColor) {
@@ -87,5 +118,25 @@ function updateShape (buildingZone, fillColor) {
 
     // Generate new Shape from newZoneObj
     let newBuildingZone = new google.maps.Rectangle( newZoneObj )
-    zoneRefsArray.push(newBuildingZone)
+    globalState.zoneRefsArray.push(newBuildingZone)
+}
+
+function updateStatus () {
+    updateLocationCount()
+    updateStatusButton()
+}
+
+function updateLocationCount () {
+    const statusProgressElem = document.querySelector('.status-modal-progress')
+    statusProgressElem.innerText = 'Location ' + globalState.locationNumber + '/' + config.totalGuessLocations
+}
+
+function updateStatusButton () {
+    const statusButtonElem = document.querySelector('.status-modal-button')
+    
+    if (globalState.locationNumber >= config.totalGuessLocations) {
+        statusButtonElem.innerText = 'Restart'
+    } else {
+        statusButtonElem.innerText = 'Next Location'
+    }
 }

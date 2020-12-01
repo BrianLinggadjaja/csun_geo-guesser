@@ -4,7 +4,6 @@
 
 
 let map
-let zoneRefsArray = []
 function initMap () {
     const csunCordinates = {
         lat: 34.23839816216911,
@@ -63,7 +62,7 @@ function createBuildingZone (zoneListings, buildingName) {
         // Attach Double Click Listener
         addBuildingZoneListener(newBuildingZone)
 
-        zoneRefsArray.push(newBuildingZone)
+        globalState.zoneRefsArray.push(newBuildingZone)
     }
 }
 
@@ -75,10 +74,10 @@ function addBuildingZoneListener (buildingZone) {
 
 function resetMap () {
     // Grab all the shapes references in the array and clear the shape
-    for (const shapeObj of zoneRefsArray) {
+    for (const shapeObj of globalState.zoneRefsArray) {
         shapeObj.setMap(null)
     }
 
     // CLear all references in shapes array
-    zoneRefsArray = []
+    globalState.zoneRefsArray = []
 }
