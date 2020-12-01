@@ -163,9 +163,14 @@
 }
 
 .status-modal-time {
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .status-modal-time {
     font-size: 1.5rem;
+}
+
+.status-modal-total-time {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
 }

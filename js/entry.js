@@ -49,7 +49,6 @@ let globalState = {
     zoneRefsArray: [],
     timerRef: null,
     totalTestTime: 0,
-    totalMinutes: 0,
     totalSeconds: 0,
     locationNumber: 0
 }
@@ -67,7 +66,6 @@ function resetState () {
 
     globalState.timerRef = null
     globalState.totalTestTime = 0
-    globalState.totalMinutes = 0
     globalState.totalSeconds = 0
     globalState.locationNumber = 0
 }
@@ -86,13 +84,7 @@ function getRandomInt (max) {
 let timer
 function startTimer () {
     timer = setInterval(() => {
-        // Increment totalMinutes when totalSeconds equals a minute
-        if (globalState.totalSeconds === 59) {
-            globalState.totalMinutes += 1
-            globalState.totalSeconds = 0
-        } else {
-            globalState.totalSeconds += 1
-        }
+        globalState.totalSeconds += 1
 
         updateClock()
     }, 1000) // Set timer for every second
@@ -101,11 +93,8 @@ function startTimer () {
 function stopTimer () {
     clearInterval(timer)
 
-    let completionTime = []
-    completionTime[0] = globalState.totalMinutes
-    completionTime[1] = globalState.totalSeconds
-
-    globalState.totalMinutes = 0
+    // Add totalSeconds of location completion to totalSeconds before resetting time
+    globalState.totalTestTime += globalState.totalSeconds
     globalState.totalSeconds = 0
 }
 
@@ -114,24 +103,28 @@ function updateClock () {
 
     if (isClockValid) {
         const timeElem = document.querySelector('.status-modal-time')
-        let hasTotalMinutes = (globalState.totalMinutes > 0) ? (globalState.totalMinutes + 'm' + ' ') : ''
         let hasTotalSeconds = (globalState.totalSeconds >= 0) ? (globalState.totalSeconds + 's') : ''
 
         // Update minutes and seconds render
-        timeElem.innerText = 'Completed In: ' + hasTotalMinutes + ' ' + hasTotalSeconds
+        timeElem.innerText = 'Completed In: ' + hasTotalSeconds
+
+        // If last location completed, showcase totalTestTime
+        const totalTimeElem = document.querySelector('.status-modal-total-time')
+        if (globalState.locationNumber >= config.totalGuessLocations) {
+            totalTimeElem.innerText = 'Total Time: ' + globalState.totalTestTime + 's'
+        } else {
+            totalTimeElem.innerText = ''
+        }
     }
 }
 
 function checkForClockValidity () {
-    // Check if number && is in range
-    let isMinutesValid = (isFinite(globalState.totalMinutes) && ((globalState.totalMinutes <= 99) || (globalState.totalMinutes >= 0)))
-    let isSecondsValid = (isFinite(globalState.totalSeconds) && ((globalState.totalSeconds <= 60) || (globalState.totalSeconds >= 0)))
+    let isSecondsValid = (isFinite(globalState.totalSeconds) && (globalState.totalSeconds >= 0))
 
-    // Check if valid totalMinutes && totalSeconds, otherwise reset clock
-    if (isMinutesValid && isSecondsValid) {
+    // Check if valid totalSeconds, otherwise reset clock
+    if (isSecondsValid) {
         return true
     } else {
-        globalState.totalMinutes = 0
         globalState.totalSeconds = 0
 
         return false
