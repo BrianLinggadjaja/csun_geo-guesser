@@ -48,13 +48,17 @@
 }
 
 .map-popover {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
     width: 80%;
     opacity: 1;
     margin-bottom: 12rem;
 }
 
 .map-popover__description {
-    margin-bottom: 2rem;
+    display: inline-block;
 }
 
 .map-popover > *:not(.map-popover__description) {
