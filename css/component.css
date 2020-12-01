@@ -59,6 +59,7 @@
 
 .map-popover__description {
     display: inline-block;
+    margin-bottom: 1rem;
 }
 
 .map-popover > *:not(.map-popover__description) {
